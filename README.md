@@ -2,8 +2,13 @@
 
 High precision satellite orbit simulation based on [skyfield](http://rhodesmill.org/skyfield/) library.
 
-Features:
+**Features:**
 
-- ground path simulation (output as Geopandas Data Frame)
-- orbit plotting with sun position and  day/night terminator line
-- generating videos
+- You can either use existing satellites (from [NORAD database](http://celestrak.com/)) or create your own custom satellite by defining [orbital elements](https://en.wikipedia.org/wiki/Orbital_elements)
+- It can simulate position of the sun and day/night terminator line
+- Output ground path in CSV
+- Generate animations
+
+**Example:**
+
+[orbit_simulator.ipynb](./orbit_simulator.ipynb)
