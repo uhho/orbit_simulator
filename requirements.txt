@@ -1,0 +1,5 @@
+numpy
+skyfield
+geopandas
+cartopy
+shapely
