@@ -9,6 +9,16 @@ High precision satellite orbit simulation based on [skyfield](http://rhodesmill.
 - Output ground path in CSV
 - Generate animations
 
-**Example:**
+## Examples
 
-[orbit_simulator.ipynb](./orbit_simulator.ipynb)
+- [ground_path_simulation.ipynb](./ground_path_simulation.ipynb)
+- [visualization.ipynb](./visualization.ipynb)
+- [animation.ipynb](./animation.ipynb)
+- [custom_satellites.ipynb](./custom_satellites.ipynb)
+
+## Sources
+
+- https://en.wikipedia.org/wiki/Simplified_perturbations_models
+- http://rhodesmill.org/skyfield/
+- https://en.wikipedia.org/wiki/Terminator_%28solar%29
+- https://github.com/SciTools/cartopy
