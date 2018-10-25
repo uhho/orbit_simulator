@@ -4,9 +4,10 @@ from __future__ import (absolute_import, division, print_function)
 import numpy as np
 from numpy import ma
 from datetime import datetime
+import pytz
+
 
 def JulianDayFromDate(date,calendar='standard'):
-
     """
 creates a Julian Day from a 'datetime-like' object.  Returns the fractional
 Julian Day (resolution 1 second).
@@ -57,6 +58,7 @@ Virginia. p. 63
     jd = jd + B
     return jd 
 
+
 def epem(date):
     """
     input: date - datetime object (assumed UTC)
@@ -91,6 +93,7 @@ def epem(date):
     dec = np.arcsin(np.sin(ep*dg2rad) * np.sin(lm*dg2rad)) * rad2dg
     return gha, dec
 
+
 def daynight_terminator(date, delta, lonmin, lonmax):
     """
     date is datetime object (assumed UTC).
@@ -104,6 +107,7 @@ def daynight_terminator(date, delta, lonmin, lonmax):
     longitude = lons + tau
     lats = np.arctan(-np.cos(longitude*dg2rad)/np.tan(dec*dg2rad))/dg2rad
     return lons, lats, tau, dec
+
 
 def daynight_grid(date, delta, lonmin, lonmax):
     """
@@ -123,17 +127,18 @@ def daynight_grid(date, delta, lonmin, lonmax):
     daynight = ma.array(daynight,mask=1-daynight) # mask day areas.
     return lons2,lats2,daynight
 
+
 def sun_pos(dt=None):
     if dt is None:
-        dt = datetime.utcnow()
+        dt = datetime.utcnow().replace(tzinfo=pytz.utc)
 
     axial_tilt = 23.4
-    ref_solstice = datetime(2016, 6, 21, 22, 22)
+    ref_solstice = datetime(2016, 6, 21, 22, 22).replace(tzinfo=pytz.utc)
     days_per_year = 365.2425
     seconds_per_day = 24*60*60.0
 
     days_since_ref = (dt - ref_solstice).total_seconds()/seconds_per_day
     lat = axial_tilt*np.cos(2*np.pi*days_since_ref/days_per_year)
-    sec_since_midnight = (dt - datetime(dt.year, dt.month, dt.day)).seconds
+    sec_since_midnight = (dt - datetime(dt.year, dt.month, dt.day).replace(tzinfo=pytz.utc)).seconds
     lng = -(sec_since_midnight/seconds_per_day - 0.5)*360
     return lat, lng
