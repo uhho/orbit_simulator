@@ -1,9 +1,19 @@
 import cartopy
 import pandas as pd
 from solar_utils import daynight_grid, sun_pos
+import matplotlib
 import matplotlib.pyplot as plt
+from datetime import datetime
+from typing import Union, Any
 
-def plot_daynight(ax, dt, transform):
+
+# Define types
+AxesSubplot = matplotlib.axes.Subplot
+DataFrame = pd.DataFrame
+ColorMap = matplotlib.colors.Colormap
+
+
+def plot_daynight(ax:AxesSubplot, dt:datetime, transform:Any) -> AxesSubplot:
     # plot sun position
     lat, lng = sun_pos(dt=dt)
     sun = plt.Circle((lng, lat), 3, facecolor='yellow', edgecolor='black', alpha=0.5, transform=transform, zorder=99, label='Sun')
@@ -12,18 +22,22 @@ def plot_daynight(ax, dt, transform):
     # draw daynight
     lons,lats,daynight = daynight_grid(date=dt, delta=0.25, lonmin=-180, lonmax=180)
     ax.contourf(lons, lats, daynight, 1, colors=['k'], alpha=0.5, transform=transform)
+    
+    return ax
 
 
-def plot_map_features(ax):
+def plot_map_features(ax:AxesSubplot) -> AxesSubplot:
     ax.set_global()
 
     # plot map with features
     ax.stock_img()
     ax.coastlines()
     ax.add_feature(cartopy.feature.BORDERS, linestyle='-', alpha=.5)
+    
+    return ax
 
 
-def plot_ground_path(ax, df, transform, daynight=True, cmap='Oranges'):    
+def plot_ground_path(ax:AxesSubplot, df:DataFrame, transform:Any, daynight:bool=True, cmap:Union[str, ColorMap]='Oranges') -> AxesSubplot:    
     dt = df.index[-1]
 
     # add basemap, coastlines and borders
@@ -47,5 +61,5 @@ def plot_ground_path(ax, df, transform, daynight=True, cmap='Oranges'):
     
     if daynight:
         plot_daynight(ax, dt, cartopy.crs.PlateCarree())
-
-    
+        
+    return ax    
