@@ -1,4 +1,4 @@
-# Orbit simulator :satellite:
+# Orbit simulator 🛰️
 
 High precision satellite orbit simulation based on [skyfield](http://rhodesmill.org/skyfield/) library.
 
@@ -9,6 +9,8 @@ High precision satellite orbit simulation based on [skyfield](http://rhodesmill.
 - Output ground path in CSV
 - Generate animations
 - Calculate MLTAN
+
+![ground path](ground_path_hodoyoshi_1.jpg)
 
 ## Examples
 
