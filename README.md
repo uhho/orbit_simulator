@@ -5,6 +5,9 @@ High precision satellite ground path simulation based on [skyfield](http://rhode
 **Features:**
 
 - Generating ground path of existing satellites (from [NORAD database](http://celestrak.com/)) or custom satellites (defined using [orbital elements](https://en.wikipedia.org/wiki/Orbital_elements)
+- Ground path is generated in two reference frames:
+    - [GCS](https://en.wikipedia.org/wiki/Geographic_coordinate_system) (geographic coordinate system, lat/lon/elevation)
+    - [ECI](https://en.wikipedia.org/wiki/Earth-centered_inertial) (Earth-centered intertial, X/Y/Z)
 - Simulating position of the sun and day/night terminator line
 - Calculating MLTAN
 - Simulation results is stored in pandas DataFrame and can be easily exported to CSV file
