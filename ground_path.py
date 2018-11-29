@@ -89,9 +89,9 @@ def get_nodes(df: DataFrame) -> DataFrame:
     return df_nodes
 
 
-def ltan(df: DataFrame) -> DataFrame:
+def ltan_raan(df: DataFrame) -> DataFrame:
     """
-    Calculates MLTAN (Local Time at Ascending Node)
+    Calculates MLTAN and RAAN
     
     Parameters
     ----------
@@ -115,4 +115,6 @@ def ltan(df: DataFrame) -> DataFrame:
                                microseconds=local_datetime.microsecond) 
         df_ltan.loc[idx, 'local_time'] = local_time
         
+    df_ltan['raan'] = (np.rad2deg(np.arctan2(df_ltan['Y'], df_ltan['X'])) + 360) % 360
+       
     return df_ltan

@@ -9,7 +9,7 @@ High precision satellite ground path simulation based on [skyfield](http://rhode
     - [GCS](https://en.wikipedia.org/wiki/Geographic_coordinate_system) (geographic coordinate system, lat/lon/elevation)
     - [ECI](https://en.wikipedia.org/wiki/Earth-centered_inertial) (Earth-centered intertial, X/Y/Z)
 - Simulating position of the sun and day/night terminator line
-- Calculating MLTAN
+- Calculating MLTAN and RAAN
 - Simulation results is stored in pandas DataFrame and can be easily exported to CSV file
 - Generating animations
 
@@ -45,6 +45,9 @@ df.head()
 
 
 ![ground path](ground_path_hodoyoshi_1.jpg)
+
+![mltan_raan](mltan_raan_hodoyoshi_1.jpg)
+
 
 ## Other examples
 
