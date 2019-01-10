@@ -20,7 +20,7 @@ TimeRange = time_utils.TimeRange
 
 def capture_plan(satellite: EarthSatellite, target_lat: Num, target_lon: Num, 
                  target_altitude: Num, date_from: datetime, date_to: datetime, freq: Num = 5, 
-                 min_satellite_nadir_angle: Num = 0, max_satellite_nadir_angle: Num = 20, 
+                 min_off_nadir_angle: Num = 0, max_off_nadir_angle: Num = 20, 
                  min_solar_zenith_angle: Num = 0, max_solar_zenith_angle: Num = 60,
                  local_time_range: TimeRange = time_utils.time_range(
                      start_times = [timedelta(hours=0, minutes=0, seconds=0, microseconds=0)],
@@ -34,8 +34,8 @@ def capture_plan(satellite: EarthSatellite, target_lat: Num, target_lon: Num,
     date_from : datetime
     date_to : datetime
     freq: int or float, default 5
-    min_satellite_nadir_angle: int or flaot, default 0
-    max_satellite_nadir_angle: int or flaot, default 20
+    min_off_nadir_angle: int or flaot, default 0
+    max_off_nadir_angle: int or flaot, default 20
     min_solar_zenith_angle: int or flaot, default 0
     max_solar_zenith_angle: int or flaot, default 60
     local_time_range: time_utils.TimeRange.
@@ -43,20 +43,20 @@ def capture_plan(satellite: EarthSatellite, target_lat: Num, target_lon: Num,
         default is all day (from 00:00:00 to 24:00:00).
     """
     
-    # Calculate satellite nadir angles
+    # Calculate satellite off-nadir angles
     time_array = time_utils.build_time_array(date_from, date_to, freq)
     target_position = _lla_to_ecef(target_lat, target_lon, target_altitude)
     satellite_positions_au, _, _ = satellite.ITRF_position_velocity_error(time_array)
     satellite_positions = satellite_positions_au.T * AU_M
-    nadir_angles = np.array([vector_utils.calc_nadir_angle(sp, target_position)[2] for sp in satellite_positions])
+    off_nadir_angles = np.array([vector_utils.calc_off_nadir_angle(sp, target_position)[2] for sp in satellite_positions])
     with np.errstate(invalid='ignore'):                                  
-        available_idx = np.where((nadir_angles >= min_satellite_nadir_angle) & (nadir_angles <= max_satellite_nadir_angle))
-    nadir_angles = nadir_angles[available_idx]
+        available_idx = np.where((off_nadir_angles >= min_off_nadir_angle) & (off_nadir_angles <= max_off_nadir_angle))
+    off_nadir_angles = off_nadir_angles[available_idx]
 
     if len(available_idx[0]) == 0:
         return pd.DataFrame(
             index=['datetime'],
-            columns=['nadir_angle', 'solar_zenith_angle', 'local_time']
+            columns=['off_nadir_angle', 'solar_zenith_angle', 'local_time']
         )
 
     # Calculate solar zenith angles
@@ -76,7 +76,7 @@ def capture_plan(satellite: EarthSatellite, target_lat: Num, target_lon: Num,
     
     df = pd.DataFrame({
         'datetime': time_array.utc_datetime(),
-        'nadir_angle': nadir_angles,
+        'off_nadir_angle': off_nadir_angles,
         'solar_zenith_angle': solar_zenith_angles,
     })
     df['local_time'] = [time_utils.calc_local_time(dt, target_lon) for dt in df.datetime]

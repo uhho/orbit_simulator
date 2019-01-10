@@ -49,6 +49,7 @@ def los_to_earth(satellite_position: Sequence[float], los_unit_vec: Sequence[flo
         National Imagery and Mapping Agency Technical Report TR 8350.2 Third Edition,
         Amendment 1, 1 Jan 2000, "Department of Defense World Geodetic System 1984"
     """
+    # See following reference for polar and equatorial radius: National Imagery and Mapping Agency Technical Report TR 8350.2 Third Edition, Amendment 1, 1 Jan 2000, "Department of Defense World Geodetic System 1984"
     a = polar_radius
     b = polar_radius
     c = equatorial_radius
@@ -85,10 +86,10 @@ def los_to_earth(satellite_position: Sequence[float], los_unit_vec: Sequence[flo
     p2 = satellite_position + d2 * los_unit_vec # Far side of the earth
     return exist_intersection, p1, p2
 
-def calc_nadir_angle(satellite_position: Sequence[float], target_position: Sequence[float], 
-                     polar_radius: float = 6371008.7714, equatorial_radius: float = 6356752.314245) -> Tuple[bool, bool, float64]:
+def calc_off_nadir_angle(satellite_position: Sequence[float], target_position: Sequence[float], 
+                         polar_radius: float = 6371008.7714, equatorial_radius: float = 6356752.314245) -> Tuple[bool, bool, float64]:
     """
-    Calculate satellite nadir angle [degree]
+    Calculate satellite off-nadir angle [degree]
 
     Parameters
     ---------
@@ -116,8 +117,8 @@ def calc_nadir_angle(satellite_position: Sequence[float], target_position: Seque
         near_side = None
         
     if near_side:
-        nadir_angle = angle_between(-satellite_position, los_vec)
+        off_nadir_angle = angle_between(-satellite_position, los_vec)
     else:
-        nadir_angle = np.nan
+        off_nadir_angle = np.nan
     
-    return exist_intersection, near_side, nadir_angle
+    return exist_intersection, near_side, off_nadir_angle
