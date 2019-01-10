@@ -12,6 +12,7 @@ High precision satellite ground path simulation based on [skyfield](http://rhode
 - Calculating MLTAN and RAAN
 - Simulation results is stored in pandas DataFrame and can be easily exported to CSV file
 - Generating animations
+- Estimate capture condition for capture planning
 
 
 ## Usage
@@ -56,6 +57,7 @@ df.head()
 - [3_animation.ipynb](./3_animation.ipynb)
 - [4_custom_satellites.ipynb](./4_custom_satellites.ipynb)
 - [5_MLTAN_RAAN.ipynb](./5_MLTAN_RAAN.ipynb)
+- [6_capture_plan.ipynb](./6_capture_plan.ipynb)
 
 ## Sources
 
