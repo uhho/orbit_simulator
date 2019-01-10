@@ -109,7 +109,6 @@ def calc_nadir_angle(satellite_position: Sequence[float], target_position: Seque
     exist_intersection, near_side_p, far_side_p = los_to_earth(satellite_position, los_unit_vec, polar_radius, equatorial_radius)
     
     if exist_intersection:
-        near_side = None
         if np.linalg.norm(near_side_p - target_position) <= np.linalg.norm(far_side_p - target_position):
             near_side = True
         else:
