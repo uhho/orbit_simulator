@@ -49,7 +49,6 @@ def los_to_earth(satellite_position: Sequence[float], los_unit_vec: Sequence[flo
         National Imagery and Mapping Agency Technical Report TR 8350.2 Third Edition,
         Amendment 1, 1 Jan 2000, "Department of Defense World Geodetic System 1984"
     """
-    # See following reference for polar and equatorial radius: National Imagery and Mapping Agency Technical Report TR 8350.2 Third Edition, Amendment 1, 1 Jan 2000, "Department of Defense World Geodetic System 1984"
     a = polar_radius
     b = polar_radius
     c = equatorial_radius
