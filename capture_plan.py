@@ -16,7 +16,6 @@ DataFrame = pd.DataFrame
 Num = Union[int, float]
 ndarray = np.ndarray
 float64 = np.float64
-Time = skyfield.timelib.Time
 TimeRange = time_utils.TimeRange
 
 
